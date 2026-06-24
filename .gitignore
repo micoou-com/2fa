@@ -1,0 +1,17 @@
+﻿bin/
+obj/
+dist/
+.vs/
+*.user
+*.suo
+*.userprefs
+*.DotSettings.user
+.cursor/
+.gitnexus/
+graphify-out/
+.cluade/
+build/
+*.dll
+*.exe
+*.obj
+*.ilk
