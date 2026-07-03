@@ -3,6 +3,7 @@
   <uses-feature android:name="android.hardware.camera" android:required="false" />
   <uses-permission android:name="android.permission.CAMERA" />
   <application
+      android:name=".TwoFactorApp"
       android:allowBackup="true"
       android:icon="@mipmap/appicon"
       android:label="@string/app_name"

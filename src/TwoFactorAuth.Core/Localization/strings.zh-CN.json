@@ -1,0 +1,15 @@
+﻿{
+  "secret.empty": "密钥不能为空。",
+  "secret.recovery_code_likely": "您输入的像是账户恢复码，不能用于生成动态码。请填写网站「手动输入密钥」中的 Base32 密钥（仅含 A–Z 与 2–7，不含 0、1、8、9）。",
+  "secret.recovery_code_wrong_count": "恢复码段数或每段长度不符合常见格式（常见为 8 段×4 字符，或 5 段×5 字符）。本处需要 Base32 密钥，不是恢复码。",
+  "secret.hex_likely": "您输入的像是十六进制密钥，本应用仅支持 Base32 格式（字母 A–Z、数字 2–7）。",
+  "secret.base32_invalid": "不是有效的 Base32 密钥。请填写网站提供的 Secret（字母 A–Z、数字 2–7，可含空格或连字符）。",
+  "secret.base32_too_short": "Base32 密钥过短（规范化后至少需要 {0} 个字符）。",
+  "secret.base32_empty": "密钥过短，无法组成有效字节。",
+  "secret.invalid": "密钥格式无效。",
+  "otp.empty": "URI 为空。",
+  "otp.hotp_not_supported": "不支持 HOTP（otpauth://hotp/）。",
+  "otp.not_otpauth": "不是有效的 otpauth://totp/ URI。",
+  "otp.no_secret": "URI 中缺少 secret 参数。",
+  "otp.parse_failed": "无法解析 URI。"
+}

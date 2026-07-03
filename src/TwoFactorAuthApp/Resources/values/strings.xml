@@ -1,18 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">2FA 验证器</string>
-    <string name="btn_ok">确定</string>
-    <string name="btn_cancel">取消</string>
-    <string name="btn_scan">扫二维码</string>
-    <string name="btn_manual">手动添加</string>
-    <string name="scan_hint">将网站提供的二维码对准取景框</string>
-    <string name="btn_close">关闭</string>
-    <string name="manual_title">手动添加 TOTP</string>
-    <string name="hint_issuer">显示名称（可选）</string>
-    <string name="hint_secret">Base32 密钥（与网站 Secret 一致）</string>
-    <string name="error_secret_empty">密钥不能为空</string>
-    <string name="error_secret_invalid">密钥不是合法 Base32</string>
-    <string name="error_parse">解析失败：{0}</string>
-    <string name="delete_confirm_title">删除条目？</string>
-    <string name="delete_confirm_message">将删除此账号在本机保存的密钥与显示信息。</string>
+    <string name="app_name">2FA Authenticator</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_scan">Scan QR</string>
+    <string name="btn_manual">Add manually</string>
+    <string name="scan_hint">Align the QR code from the website within the frame</string>
+    <string name="btn_close">Close</string>
+    <string name="manual_title">Add TOTP manually</string>
+    <string name="hint_issuer">Display name (optional)</string>
+    <string name="hint_secret">Base32 secret (same as website Secret)</string>
+    <string name="manual_secret_hint">Enter the Base32 setup key from the website, not an account recovery code.</string>
+    <string name="manual_secret_helper">A–Z and 2–7 only. Do not paste recovery codes (often contain 0, 1, 8, 9 or short segments).</string>
+    <string name="error_parse">Parse failed: {0}</string>
+    <string name="btn_delete">Delete</string>
+    <string name="delete_confirm_title">Delete entry?</string>
+    <string name="delete_confirm_message">This removes the saved secret and label from this device.</string>
+    <string name="toggle_secret_visibility">Show or hide secret</string>
+    <string name="timer_seconds">{0} s</string>
 </resources>

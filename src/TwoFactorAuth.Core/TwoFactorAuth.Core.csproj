@@ -4,6 +4,12 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>TwoFactorAuth.Core</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\strings.en.json" />
+    <EmbeddedResource Include="Localization\strings.zh-CN.json" />
+  </ItemGroup>
 
 </Project>

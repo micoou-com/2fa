@@ -1,0 +1,12 @@
+﻿TwoFactorAuth
+Copyright 2026 ReeGenius
+
+This product includes software developed by ReeGenius (https://github.com/ReeGenius/two-factor-auth).
+
+Third-party components bundled or referenced by this project include:
+
+- ZXing.Net (https://github.com/micjahn/ZXing.Net) — Apache License 2.0
+- AndroidX libraries (Camera, AppCompat, RecyclerView, etc.) — Apache License 2.0
+- Google Material Components for Android — Apache License 2.0
+
+See each package's repository for full license texts.

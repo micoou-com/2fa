@@ -15,3 +15,10 @@ build/
 *.exe
 *.obj
 *.ilk
+*.apk
+*.aab
+*.nupkg
+*.log
+TestResults/
+.DS_Store
+Thumbs.db

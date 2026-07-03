@@ -17,7 +17,10 @@ public class MainActivity : AppCompatActivity
     private JsonAccountStore? _store;
     private AccountAdapter? _adapter;
     private readonly Handler _handler = new(Looper.MainLooper!);
-    private Action? _tick;
+    private readonly TickRunnable _tickRunnable;
+    private bool _tickRunning;
+
+    public MainActivity() => _tickRunnable = new TickRunnable(this);
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {
@@ -52,45 +55,42 @@ public class MainActivity : AppCompatActivity
 
     private void ShowManualDialog()
     {
-        var container = new LinearLayout(this)
-        {
-            Orientation = Orientation.Vertical
-        };
-        int pad = (int)(16 * Resources!.DisplayMetrics!.Density);
-        container.SetPadding(pad, pad, pad, pad);
+        View? dialogView = LayoutInflater.From(this)!.Inflate(Resource.Layout.dialog_manual_add, null);
+        var issuer = dialogView!.FindViewById<Google.Android.Material.TextField.TextInputEditText>(Resource.Id.edit_issuer)!;
+        var secret = dialogView.FindViewById<Google.Android.Material.TextField.TextInputEditText>(Resource.Id.edit_secret)!;
+        var secretLayout = dialogView.FindViewById<Google.Android.Material.TextField.TextInputLayout>(Resource.Id.layout_secret)!;
 
-        var issuer = new EditText(this) { Hint = GetString(Resource.String.hint_issuer) };
-        var secret = new EditText(this) { Hint = GetString(Resource.String.hint_secret) };
-        secret.InputType = Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextVariationVisiblePassword;
-        container.AddView(issuer, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent));
-        container.AddView(secret, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent));
-
-        new AndroidX.AppCompat.App.AlertDialog.Builder(this!)
+        var dialog = new AndroidX.AppCompat.App.AlertDialog.Builder(this!)
             .SetTitle(Resource.String.manual_title)
-            .SetView(container)
+            .SetView(dialogView)
             .SetNegativeButton(Resource.String.btn_cancel, (s, e) => { })
-            .SetPositiveButton(Resource.String.btn_ok, (s, e) =>
+            .SetPositiveButton(Resource.String.btn_ok, (s, e) => { })
+            .Create();
+
+        dialog!.Show();
+        dialog.GetButton((int)Android.Content.DialogButtonType.Positive)!.Click += (_, _) =>
+        {
+            secretLayout.Error = null;
+            string iss = issuer.Text?.ToString()?.Trim() ?? "";
+            string sec = secret.Text?.ToString()?.Trim() ?? "";
+            if (!TryAddFromManual(iss, sec, out string? err))
             {
-                string iss = issuer.Text?.ToString()?.Trim() ?? "";
-                string sec = secret.Text?.ToString()?.Trim() ?? "";
-                TryAddFromManual(iss, sec);
-                HideKeyboard(issuer);
-            })
-            .Show();
+                secretLayout.Error = err;
+                return;
+            }
+
+            HideKeyboard(secret);
+            dialog.Dismiss();
+        };
     }
 
-    private void TryAddFromManual(string issuer, string secret)
+    private bool TryAddFromManual(string issuer, string secret, out string? errorMessage)
     {
-        if (string.IsNullOrWhiteSpace(secret))
-        {
-            Toast.MakeText(this, GetString(Resource.String.error_secret_empty), ToastLength.Short)?.Show();
-            return;
-        }
-
+        errorMessage = null;
         if (!SecretBytes.TryDecodeSecret(secret, out _, out string? err))
         {
-            Toast.MakeText(this, SecretBytes.DescribeDecodeError(err), ToastLength.Short)?.Show();
-            return;
+            errorMessage = SecretBytes.DescribeDecodeError(err);
+            return false;
         }
 
         string label = string.IsNullOrWhiteSpace(issuer) ? "Manual" : issuer;
@@ -104,6 +104,7 @@ public class MainActivity : AppCompatActivity
             PeriodSeconds = 30
         });
         _adapter?.Reload();
+        return true;
     }
 
     private void HideKeyboard(Android.Views.View view)
@@ -112,26 +113,41 @@ public class MainActivity : AppCompatActivity
         imm?.HideSoftInputFromWindow(view.WindowToken, HideSoftInputFlags.None);
     }
 
-    protected override void OnResume()
+    protected override void OnStart()
     {
-        base.OnResume();
+        base.OnStart();
         _adapter?.Reload();
-        _tick = Tick;
-        _handler.PostDelayed(_tick, 200);
+        StartTick();
     }
 
-    private void Tick()
+    protected override void OnStop()
     {
-        _adapter?.NotifyDataSetChanged();
-        if (_tick != null)
-            _handler.PostDelayed(_tick, 500);
+        StopTick();
+        base.OnStop();
     }
 
-    protected override void OnPause()
+    private void StartTick()
     {
-        base.OnPause();
-        if (_tick != null)
-            _handler.RemoveCallbacks(_tick);
+        if (_tickRunning)
+            return;
+        _tickRunning = true;
+        _handler.PostDelayed(_tickRunnable, 200);
+    }
+
+    private void StopTick()
+    {
+        _tickRunning = false;
+        _handler.RemoveCallbacks(_tickRunnable);
+    }
+
+    private sealed class TickRunnable(MainActivity activity) : Java.Lang.Object, Java.Lang.IRunnable
+    {
+        public void Run()
+        {
+            activity._adapter?.RefreshDisplay();
+            if (activity._tickRunning)
+                activity._handler.PostDelayed(this, 500);
+        }
     }
 
 #pragma warning disable CA1422 // OnActivityResult still used for broad API coverage
@@ -147,7 +163,7 @@ public class MainActivity : AppCompatActivity
 
         if (!OtpAuthParser.TryParse(raw, out OtpAuthEntry? e, out string? err) || e is null)
         {
-            Toast.MakeText(this, string.Format(GetString(Resource.String.error_parse), err ?? ""), ToastLength.Long)?.Show();
+            Toast.MakeText(this, string.Format(GetString(Resource.String.error_parse), OtpAuthParser.DescribeParseError(err)), ToastLength.Long)?.Show();
             return;
         }
 

@@ -4,20 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="2FA 验证器 (Windows)" Height="520" Width="720"
+        Height="520" Width="720"
         WindowStartupLocation="CenterScreen">
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button x:Name="BtnManual" Content="手动添加" Width="100" Margin="0,0,8,0" Click="BtnManual_OnClick"/>
-            <Button x:Name="BtnPaste" Content="粘贴 otpauth" Width="120" Margin="0,0,8,0" Click="BtnPaste_OnClick"/>
-            <Button x:Name="BtnDelete" Content="删除所选" Width="100" Click="BtnDelete_OnClick"/>
+            <Button x:Name="BtnManual" Width="100" Margin="0,0,8,0" Click="BtnManual_OnClick"/>
+            <Button x:Name="BtnPaste" Width="120" Margin="0,0,8,0" Click="BtnPaste_OnClick"/>
+            <Button x:Name="BtnDelete" Width="100" Click="BtnDelete_OnClick"/>
         </StackPanel>
         <ListView x:Name="AccountsView" SelectionMode="Single">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="账号" Width="320" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="动态码" Width="140" DisplayMemberBinding="{Binding Code}"/>
-                    <GridViewColumn Header="剩余" Width="100" DisplayMemberBinding="{Binding Sec}"/>
+                    <GridViewColumn x:Name="ColAccount" Width="320" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn x:Name="ColCode" Width="140" DisplayMemberBinding="{Binding Code}"/>
+                    <GridViewColumn x:Name="ColRemaining" Width="100" DisplayMemberBinding="{Binding Sec}"/>
                 </GridView>
             </ListView.View>
         </ListView>

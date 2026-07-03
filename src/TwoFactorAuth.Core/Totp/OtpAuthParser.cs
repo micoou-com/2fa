@@ -103,4 +103,16 @@ public static class OtpAuthParser
         }
         return d;
     }
+
+    /// <summary>将 <see cref="TryParse"/> 的稳定错误码转为本地化说明。</summary>
+    public static string DescribeParseError(string? error) =>
+        error switch
+        {
+            "empty" => Localization.Loc.T("otp.empty"),
+            "hotp_not_supported" => Localization.Loc.T("otp.hotp_not_supported"),
+            "not_otpauth" => Localization.Loc.T("otp.not_otpauth"),
+            "no_secret" => Localization.Loc.T("otp.no_secret"),
+            null or "" => Localization.Loc.T("otp.parse_failed"),
+            _ => error,
+        };
 }

@@ -75,7 +75,58 @@ public class TotpAndOtpAuthTests
     {
         bool ok = SecretBytes.TryDecodeSecret("02F0CC9D37", out _, out string? err);
         Assert.False(ok);
-        Assert.Equal("base32_invalid", err);
+        Assert.Equal("hex_likely", err);
+    }
+
+    [Fact]
+    public void SecretBytes_TryDecode_RecoveryCodeSegments_Rejected()
+    {
+        const string googleStyle = "1234-5678-9012-3456-5678-9012-3456-7890";
+        bool ok = SecretBytes.TryDecodeSecret(googleStyle, out _, out string? err);
+        Assert.False(ok);
+        Assert.Equal("recovery_code_likely", err);
+    }
+
+    [Fact]
+    public void SecretBytes_TryDecode_RecoveryCodeWrongCount_Rejected()
+    {
+        bool ok = SecretBytes.TryDecodeSecret("1234-5678-9012-3456", out _, out string? err);
+        Assert.False(ok);
+        Assert.Equal("recovery_code_wrong_count", err);
+    }
+
+    [Fact]
+    public void SecretBytes_TryDecode_DashedBase32_Accepted()
+    {
+        bool ok = SecretBytes.TryDecodeSecret("JBSW-Y3DPE-HPK3-PXP", out byte[]? key, out string? err);
+        Assert.True(ok, err ?? "");
+        Assert.NotNull(key);
+        Assert.NotEmpty(key);
+    }
+
+    [Fact]
+    public void SecretBytes_TryDecode_TooShortBase32_Rejected()
+    {
+        bool ok = SecretBytes.TryDecodeSecret("ABCD", out _, out string? err);
+        Assert.False(ok);
+        Assert.Equal("base32_too_short", err);
+    }
+
+    [Fact]
+    public void SecretBytes_TryDecode_SingleLineRecoveryDigits_Rejected()
+    {
+        bool ok = SecretBytes.TryDecodeSecret("1234567890123456", out _, out string? err);
+        Assert.False(ok);
+        Assert.Equal("recovery_code_likely", err);
+    }
+
+    [Fact]
+    public void SecretBytes_TryDecode_LowercaseDashedBase32_Accepted()
+    {
+        bool ok = SecretBytes.TryDecodeSecret("abcd-efgh-ijkl-mnop", out byte[]? key, out string? err);
+        Assert.True(ok, err ?? "");
+        Assert.NotNull(key);
+        Assert.NotEmpty(key);
     }
 
     [Fact]

@@ -1,0 +1,15 @@
+﻿{
+  "secret.empty": "Secret cannot be empty.",
+  "secret.recovery_code_likely": "This looks like an account recovery code, not a TOTP secret. Enter the Base32 setup key from the website (letters A–Z and digits 2–7 only; not 0, 1, 8, or 9).",
+  "secret.recovery_code_wrong_count": "Recovery-code segment count or length does not match common formats (often 8×4 or 5×5). This field requires a Base32 TOTP secret.",
+  "secret.hex_likely": "This looks like a hexadecimal key. Only Base32 is supported (letters A–Z and digits 2–7).",
+  "secret.base32_invalid": "Not a valid Base32 secret. Use the setup key from the website (A–Z, 2–7; spaces or hyphens are OK).",
+  "secret.base32_too_short": "Base32 secret is too short (at least {0} characters after normalization).",
+  "secret.base32_empty": "Secret is too short to decode into key bytes.",
+  "secret.invalid": "Invalid secret format.",
+  "otp.empty": "URI is empty.",
+  "otp.hotp_not_supported": "HOTP (otpauth://hotp/) is not supported.",
+  "otp.not_otpauth": "Not a valid otpauth://totp/ URI.",
+  "otp.no_secret": "Missing secret parameter in URI.",
+  "otp.parse_failed": "Could not parse URI."
+}

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Threading;
 using TwoFactorAuth.Core.Data;
 using TwoFactorAuth.Core.Totp;
+using TwoFactorAuth.Win.Localization;
 
 namespace TwoFactorAuth.Win;
 
@@ -18,6 +19,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        ApplyLocalization();
         string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TwoFactorAuth");
         _store = new JsonAccountStore(Path.Combine(dir, "accounts.json"));
         AccountsView.ItemsSource = _rows;
@@ -29,6 +31,17 @@ public partial class MainWindow : Window
             _timer.Start();
         };
         Closed += (_, _) => _timer.Stop();
+    }
+
+    private void ApplyLocalization()
+    {
+        Title = UiLoc.T("app.title");
+        BtnManual.Content = UiLoc.T("main.btnManual");
+        BtnPaste.Content = UiLoc.T("main.btnPaste");
+        BtnDelete.Content = UiLoc.T("main.btnDelete");
+        ColAccount.Header = UiLoc.T("main.colAccount");
+        ColCode.Header = UiLoc.T("main.colCode");
+        ColRemaining.Header = UiLoc.T("main.colRemaining");
     }
 
     private void ReloadFromStore()
@@ -52,19 +65,14 @@ public partial class MainWindow : Window
             return;
         string iss = dlg.IssuerText.Trim();
         string sec = dlg.SecretText.Trim();
-        if (string.IsNullOrWhiteSpace(sec))
-        {
-            MessageBox.Show("密钥不能为空。", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-
         if (!SecretBytes.TryDecodeSecret(sec, out _, out string? err))
         {
-            MessageBox.Show(SecretBytes.DescribeDecodeError(err), "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(SecretBytes.DescribeDecodeError(err), UiLoc.T("msg.secretFormatTitle"),
+                MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
-        string label = string.IsNullOrWhiteSpace(iss) ? "Manual" : iss;
+        string label = string.IsNullOrWhiteSpace(iss) ? UiLoc.T("label.manual") : iss;
         string storedSecret = SecretBytes.NormalizeSeparators(sec);
         _store.Add(new AccountEntry
         {
@@ -85,7 +93,8 @@ public partial class MainWindow : Window
         string raw = dlg.UriText.Trim();
         if (!OtpAuthParser.TryParse(raw, out OtpAuthEntry? ent, out string? err) || ent is null)
         {
-            MessageBox.Show(string.IsNullOrEmpty(err) ? "无法解析" : err, "解析失败", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(OtpAuthParser.DescribeParseError(err), UiLoc.T("msg.parseTitle"),
+                MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -104,11 +113,13 @@ public partial class MainWindow : Window
     {
         if (AccountsView.SelectedItem is not DispRow row)
         {
-            MessageBox.Show("请先选中一行。", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(UiLoc.T("msg.selectRow"), UiLoc.T("msg.title"),
+                MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 
-        if (MessageBox.Show("删除该账号的本地记录？", "确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+        if (MessageBox.Show(UiLoc.T("msg.deleteConfirm"), UiLoc.T("msg.confirmTitle"),
+                MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
             return;
         _store.Remove(row.Entry.Id);
         ReloadFromStore();
