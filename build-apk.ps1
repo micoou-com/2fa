@@ -61,16 +61,20 @@ function Find-Apk([string]$Directory) {
 $dotnet = Resolve-DotNet
 Write-Host "Using dotnet: $dotnet" -ForegroundColor Cyan
 
-$env:DOTNET_ROOT = Split-Path -Parent $dotnet
 Ensure-AndroidWorkload $dotnet
+
+$Keystore = Join-Path $RepoRoot 'src\TwoFactorAuthApp\signing\twofactorauth-release.keystore'
+if (-not (Test-Path -LiteralPath $Keystore)) {
+    throw "Release keystore not found: $Keystore"
+}
+Write-Host "Signing keystore: $Keystore" -ForegroundColor Cyan
 
 Write-Host 'Publishing Release APK ...' -ForegroundColor Cyan
 Push-Location $RepoRoot
 try {
     & $dotnet publish $Project `
         -c Release `
-        -f net9.0-android `
-        -p:AndroidPackageFormats=apk
+        -f net9.0-android
     if ($LASTEXITCODE -ne 0) {
         throw "dotnet publish failed with exit code $LASTEXITCODE"
     }

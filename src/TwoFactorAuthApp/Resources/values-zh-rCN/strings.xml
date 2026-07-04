@@ -5,17 +5,21 @@
     <string name="btn_cancel">取消</string>
     <string name="btn_scan">扫二维码</string>
     <string name="btn_manual">手动添加</string>
-    <string name="scan_hint">将网站提供的二维码对准取景框</string>
+    <string name="scan_hint">对准二维码保持稳定，会自动识别；也可点下方「拍照识别」。</string>
+    <string name="btn_capture">拍照识别</string>
+    <string name="scan_no_qr">未识别到 otpauth 二维码，请重试或改用手动添加。</string>
+    <string name="scan_camera_denied">需要相机权限才能扫描二维码。</string>
+    <string name="scan_camera_error">无法打开相机。</string>
     <string name="btn_close">关闭</string>
     <string name="manual_title">手动添加 TOTP</string>
     <string name="hint_issuer">显示名称（可选）</string>
     <string name="hint_secret">Base32 密钥（与网站 Secret 一致）</string>
     <string name="manual_secret_hint">请填写网站「手动输入密钥」中的 Base32 串，不是账户恢复码。</string>
     <string name="manual_secret_helper">仅含 A–Z 与 2–7；勿填恢复码（常含 0、1、8、9 或多段短码）。</string>
-    <string name="error_parse">解析失败：{0}</string>
+    <string name="error_parse">解析失败：%1$s</string>
     <string name="btn_delete">删除</string>
     <string name="delete_confirm_title">删除条目？</string>
     <string name="delete_confirm_message">将删除此账号在本机保存的密钥与显示信息。</string>
     <string name="toggle_secret_visibility">显示或隐藏密钥</string>
-    <string name="timer_seconds">{0} 秒</string>
+    <string name="timer_seconds">%1$d 秒</string>
 </resources>

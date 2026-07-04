@@ -163,7 +163,7 @@ public class MainActivity : AppCompatActivity
 
         if (!OtpAuthParser.TryParse(raw, out OtpAuthEntry? e, out string? err) || e is null)
         {
-            Toast.MakeText(this, string.Format(GetString(Resource.String.error_parse), OtpAuthParser.DescribeParseError(err)), ToastLength.Long)?.Show();
+            Toast.MakeText(this, GetString(Resource.String.error_parse, OtpAuthParser.DescribeParseError(err)), ToastLength.Long)?.Show();
             return;
         }
 

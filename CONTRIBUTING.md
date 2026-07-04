@@ -1,6 +1,6 @@
 ﻿# Contributing
 
-Thank you for your interest in contributing to TwoFactorAuth.
+Thank you for your interest in contributing to TwoFactorAuth — a free, open-source public-good project.
 
 ## Getting started
 

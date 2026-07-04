@@ -39,18 +39,20 @@ internal static class LuminanceExtractor
             _ = buf.Get(); // alpha
             lum[i] = (byte)((r * 19595 + g * 38469 + b * 7472) >> 16);
         }
+
         return lum;
     }
 
     private static byte[] FromYPlane420(Image.Plane yPlane, int w, int h)
     {
         var buf = yPlane.Buffer!;
+        buf.Rewind();
         int rowStride = yPlane.RowStride;
         int pixelStride = yPlane.PixelStride;
         var lum = new byte[w * h];
+
         if (pixelStride == 1 && rowStride == w)
         {
-            buf.Rewind();
             buf.Get(lum, 0, w * h);
             return lum;
         }
@@ -59,10 +61,9 @@ internal static class LuminanceExtractor
         {
             int rowStart = row * rowStride;
             for (int col = 0; col < w; col++)
-            {
                 lum[row * w + col] = (byte)(buf.Get(rowStart + col * pixelStride) & 0xff);
-            }
         }
+
         return lum;
     }
 }

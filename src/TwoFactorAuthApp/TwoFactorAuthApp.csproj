@@ -6,9 +6,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationId>com.reegenius.twofactorauth</ApplicationId>
-    <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>3</ApplicationVersion>
+    <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
     <TrimMode>partial</TrimMode>
+  </PropertyGroup>
+  <Import Project="signing\Signing.props" Condition="Exists('signing\Signing.props')" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AndroidPackageFormats>apk</AndroidPackageFormats>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\TwoFactorAuth.Core\TwoFactorAuth.Core.csproj" />

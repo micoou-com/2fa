@@ -10,7 +10,7 @@
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-This project is a **demo / educational** TOTP client. Secrets are stored in **plain JSON** on disk without hardware-backed encryption. It is **not** intended as a production-grade security product.
+This project is a **free, open-source** TOTP client maintained for public benefit. Secrets are stored in **plain JSON** on disk without hardware-backed encryption. It is **not** marketed as a commercial security product; evaluate the threat model before use.
 
 If you still believe you have found a security-relevant defect (for example, incorrect TOTP computation, secret leakage through logs, or unsafe parsing), please report it privately:
 

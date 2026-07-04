@@ -54,7 +54,3 @@ The implementation may additionally reject inputs that look like **recovery code
 
 - [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648) — *The Base16, Base32, and Base64 Data Encodings*
 - [RFC 6238](https://www.rfc-editor.org/rfc/rfc6238) — *TOTP: Time-Based One-Time Password Algorithm*
-
-## Alternate language
-
-Simplified Chinese version: [RYIOF_DWS20260424002-2FA共享密钥输入规范.md](RYIOF_DWS20260424002-2FA共享密钥输入规范.md)

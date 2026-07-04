@@ -6,6 +6,7 @@
   "main.colAccount": "账号",
   "main.colCode": "动态码",
   "main.colRemaining": "剩余",
+  "main.timerSeconds": "{0} 秒",
   "dlg.manual.title": "手动添加 TOTP",
   "dlg.manual.issuerLabel": "显示名称（可选）",
   "dlg.manual.secretLabel": "Base32 密钥（与网站 Secret / 扫码一致，可含空格或连字符）",

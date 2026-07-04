@@ -2,14 +2,18 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-基于 **.NET 9** 的轻量级 **TOTP** 身份验证器，支持 **Windows** 与 **Android**。
+基于 **.NET 9** 的**免费开源** TOTP 身份验证器，支持 **Windows** 与 **Android**。
+
+本项目以**公益**为目的：无广告、无订阅、无账号、无云同步。源码与文档采用 [Apache 2.0](LICENSE) 发布，供任何人免费使用、学习与改进。
+
+## 功能
 
 - **Android** 扫描二维码（`otpauth://totp/`），**Windows** 粘贴 URI
 - 手动添加密钥，自动识别 **Base32** / 恢复码 / 十六进制误输入
 - 数据保存在应用沙箱 / `%AppData%` 的 JSON 文件中
 - **中英双语界面**，跟随系统语言
 
-> **示例 / 教学用途。** 密钥以明文 JSON 存储，未使用硬件级加密，不作为生产级安全产品。
+> **安全提示。** 密钥以明文 JSON 存储，未使用硬件级加密。适合学习与个人使用；用于高价值账户前请自行评估风险。
 
 ## 快速开始
 
@@ -31,10 +35,14 @@ dotnet run --project src/TwoFactorAuth.Win/TwoFactorAuth.Win.csproj
 
 ### 构建 Android APK
 
+Release 包使用仓库内 **`src/TwoFactorAuthApp/signing/`** 中的公开签名文件（见 [signing/README.md](src/TwoFactorAuthApp/signing/README.md)）。
+
 ```bash
 dotnet publish src/TwoFactorAuthApp/TwoFactorAuthApp.csproj \
-  -c Release -f net9.0-android -p:AndroidPackageFormats=apk
+  -c Release -f net9.0-android
 ```
+
+签名输出：`src/TwoFactorAuthApp/bin/Release/net9.0-android/publish/com.reegenius.twofactorauth-Signed.apk`
 
 或在 Windows 上：
 
@@ -57,7 +65,7 @@ dotnet test TwoFactorAuth.sln
 | `src/TwoFactorAuth.Win` | WPF 桌面客户端 |
 | `src/TwoFactorAuthApp` | .NET Android 客户端（CameraX + ZXing） |
 | `tests/TwoFactorAuth.Logic.Tests` | 单元测试 |
-| `docs/` | 规范与贡献者文档 |
+| `docs/` | 规范与构建说明（英文） |
 
 ## 密钥输入规范
 
@@ -67,7 +75,7 @@ dotnet test TwoFactorAuth.sln
 - **十六进制**密钥
 - 无效或过短的 Base32
 
-详见 [docs/spec/secret-input.md](docs/spec/secret-input.md)（英文）或 [docs/spec/RYIOF_DWS20260424002-2FA共享密钥输入规范.md](docs/spec/RYIOF_DWS20260424002-2FA共享密钥输入规范.md)（中文）。
+详见 [docs/spec/secret-input.md](docs/spec/secret-input.md)。
 
 ## 多语言
 

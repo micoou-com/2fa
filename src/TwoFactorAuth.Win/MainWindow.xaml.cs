@@ -152,7 +152,8 @@ public partial class MainWindow : Window
         public void Refresh()
         {
             Code = TotpGenerator.Generate(Entry.SecretBase32, Entry.Digits, Entry.PeriodSeconds);
-            Sec = $"{TotpGenerator.SecondsRemaining(Entry.PeriodSeconds)} s";
+            Sec = string.Format(System.Globalization.CultureInfo.CurrentUICulture,
+                UiLoc.T("main.timerSeconds"), TotpGenerator.SecondsRemaining(Entry.PeriodSeconds));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

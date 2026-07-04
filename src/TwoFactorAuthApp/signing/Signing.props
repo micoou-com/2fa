@@ -1,0 +1,10 @@
+﻿<Project>
+  <!-- Public release signing for reproducible open-source APK builds. See signing/README.md -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>$(MSBuildProjectDirectory)\signing\twofactorauth-release.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>twofactorauth</AndroidSigningKeyAlias>
+    <AndroidSigningStorePass>twofactorauth</AndroidSigningStorePass>
+    <AndroidSigningKeyPass>twofactorauth</AndroidSigningKeyPass>
+  </PropertyGroup>
+</Project>

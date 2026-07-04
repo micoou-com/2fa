@@ -6,6 +6,7 @@
   "main.colAccount": "Account",
   "main.colCode": "Code",
   "main.colRemaining": "Left",
+  "main.timerSeconds": "{0} s",
   "dlg.manual.title": "Add TOTP manually",
   "dlg.manual.issuerLabel": "Display name (optional)",
   "dlg.manual.secretLabel": "Base32 secret (same as website Secret / QR scan; spaces or hyphens OK)",

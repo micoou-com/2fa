@@ -2,20 +2,18 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A lightweight **TOTP** authenticator for **Windows** and **Android**, built with **.NET 9**.
+A **free, open-source** TOTP authenticator for **Windows** and **Android**, built with **.NET 9**.
+
+This is a **public-good project**: no ads, no subscriptions, no accounts, and no cloud sync. Source code and documentation are published under [Apache 2.0](LICENSE) for anyone to use, study, and improve.
+
+## Features
 
 - Scan `otpauth://totp/` QR codes (Android) or paste URIs (Windows)
 - Manually add secrets with **Base32** validation and recovery-code detection
 - Local JSON storage in the app sandbox / `%AppData%`
 - **Bilingual UI**: English and Simplified Chinese (follows system language)
 
-> **Demo / educational use.** Secrets are stored in plain JSON without hardware-backed encryption. Not a production security product.
-
-## Screenshots
-
-| Windows | Android |
-|---------|---------|
-| List with live countdown | QR scan + manual entry |
+> **Security note.** Secrets are stored in plain JSON without hardware-backed encryption. Suitable for learning and personal use; evaluate carefully before relying on it for high-value accounts.
 
 ## Quick start
 
@@ -37,10 +35,14 @@ Data file: `%AppData%\TwoFactorAuth\accounts.json`
 
 ### Build Android APK
 
+Release APKs are signed with the **public keystore** in `src/TwoFactorAuthApp/signing/` (see [signing/README.md](src/TwoFactorAuthApp/signing/README.md)).
+
 ```bash
 dotnet publish src/TwoFactorAuthApp/TwoFactorAuthApp.csproj \
-  -c Release -f net9.0-android -p:AndroidPackageFormats=apk
+  -c Release -f net9.0-android
 ```
+
+Signed output: `src/TwoFactorAuthApp/bin/Release/net9.0-android/publish/com.reegenius.twofactorauth-Signed.apk`
 
 Or on Windows:
 
@@ -63,7 +65,7 @@ dotnet test TwoFactorAuth.sln
 | `src/TwoFactorAuth.Win` | WPF desktop client |
 | `src/TwoFactorAuthApp` | .NET Android client (CameraX + ZXing) |
 | `tests/TwoFactorAuth.Logic.Tests` | Unit tests |
-| `docs/` | Specifications and contributor documentation |
+| `docs/` | Specifications and build reference |
 
 ## Secret input rules
 

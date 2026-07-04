@@ -1,23 +1,40 @@
 ﻿# Documentation
 
-## Public specifications
+TwoFactorAuth is a **free, open-source public-good project**. The apps are local-only TOTP authenticators with no accounts, ads, subscriptions, or cloud services.
+
+## Specifications
 
 | Document | Description |
 |----------|-------------|
-| [spec/secret-input.md](spec/secret-input.md) | **TOTP shared secret input rules** (English, canonical for contributors) |
-| [spec/RYIOF_DWS20260424002-2FA共享密钥输入规范.md](spec/RYIOF_DWS20260424002-2FA共享密钥输入规范.md) | Same specification in Simplified Chinese |
+| [spec/secret-input.md](spec/secret-input.md) | TOTP shared secret input rules (normalization, Base32 decoding, rejection of recovery codes) |
 
-## What this repository implements today
+Implementation: `TwoFactorAuth.Core.Totp.SecretBytes`.
 
-The shipped clients are **local-only** TOTP authenticators:
+## Supported platforms
 
-- **Windows** — WPF desktop app (`src/TwoFactorAuth.Win`)
-- **Android** — .NET Android app with QR scan (`src/TwoFactorAuthApp`)
+| Platform | Client | Data location |
+|----------|--------|---------------|
+| Windows | WPF (`src/TwoFactorAuth.Win`) | `%AppData%\TwoFactorAuth\accounts.json` |
+| Android | .NET Android (`src/TwoFactorAuthApp`) | App-private `accounts.json` |
 
-Accounts are stored as plain JSON in the app sandbox / `%AppData%`. There is **no** cloud sync or account login in the current codebase.
+iOS, Linux, macOS, and web clients are **not** in scope today.
 
-## Maintainer notes
+## Build reference
 
-See [internal/project-memory.md](internal/project-memory.md) for a short platform and build reference.
+```bash
+# Windows client
+dotnet run --project src/TwoFactorAuth.Win/TwoFactorAuth.Win.csproj
 
-If you contribute code, treat [spec/secret-input.md](spec/secret-input.md) and the unit tests as the source of truth for secret handling.
+# Android APK
+dotnet publish src/TwoFactorAuthApp/TwoFactorAuthApp.csproj \
+  -c Release -f net9.0-android -p:AndroidPackageFormats=apk
+
+# Tests
+dotnet test TwoFactorAuth.sln
+```
+
+On Windows you can also run `.\build-apk.ps1`.
+
+## Contributing
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md). For secret handling, treat [spec/secret-input.md](spec/secret-input.md) and `tests/TwoFactorAuth.Logic.Tests` as the source of truth.
