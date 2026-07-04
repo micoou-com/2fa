@@ -37,3 +37,9 @@ If you find a security issue, please read [SECURITY.md](SECURITY.md) and report 
 ## License
 
 By contributing, you agree that your contributions will be licensed under the [Apache License 2.0](LICENSE).
+
+## Commit attribution
+
+- Commits must list **human contributors only**. Do **not** add `Co-authored-by` trailers for AI tools (including Cursor) unless the maintainer explicitly approves.
+- In Cursor: disable automatic co-author injection before committing (Settings → search **co-author** or **attribution**, turn off commit co-author / attribution features).
+- If an unauthorized co-author appears in history, rewrite the commit message before pushing (maintainers may force-push to fix the contributor graph).
