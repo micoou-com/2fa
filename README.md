@@ -26,8 +26,8 @@ This is a **public-good project**: no ads, no subscriptions, no accounts, and no
 ### Run (Windows)
 
 ```bash
-git clone https://github.com/ReeGenius/two-factor-auth.git
-cd two-factor-auth
+git clone https://github.com/micoou-com/2fa.git
+cd 2fa
 dotnet run --project src/TwoFactorAuth.Win/TwoFactorAuth.Win.csproj
 ```
 
