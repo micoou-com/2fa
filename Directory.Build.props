@@ -4,7 +4,7 @@
     <Authors>ReeGenius</Authors>
     <Copyright>Copyright © 2026 ReeGenius</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/ReeGenius/two-factor-auth</RepositoryUrl>
+    <RepositoryUrl>https://github.com/micoou-com/2fa</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 </Project>

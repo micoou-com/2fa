@@ -26,8 +26,8 @@
 ### 运行 Windows 客户端
 
 ```bash
-git clone https://github.com/ReeGenius/two-factor-auth.git
-cd two-factor-auth
+git clone https://github.com/micoou-com/2fa.git
+cd 2fa
 dotnet run --project src/TwoFactorAuth.Win/TwoFactorAuth.Win.csproj
 ```
 
