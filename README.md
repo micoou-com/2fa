@@ -6,6 +6,15 @@ A **free, open-source** TOTP authenticator for **Windows** and **Android**, buil
 
 This is a **public-good project**: no ads, no subscriptions, no accounts, and no cloud sync. Source code and documentation are published under [Apache 2.0](LICENSE) for anyone to use, study, and improve.
 
+## Why this project?
+
+Two-factor codes are basic security hygiene, but many existing authenticator apps get in the way:
+
+1. **Some charge money** — subscriptions, paid tiers, or “pro” features for something as simple as showing a TOTP code.
+2. **Many are too heavy** — sign-up, cloud accounts, sync setup, ads, and extra screens before you can add a single token.
+
+TwoFactorAuth does the opposite: **scan or paste, then see your codes**. Data stays on your device. No registration, no billing, no cloud dependency — just a small tool that does one job well.
+
 ## Features
 
 - Scan `otpauth://totp/` QR codes (Android) or paste URIs (Windows)
